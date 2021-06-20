@@ -1,0 +1,57 @@
+#include <Servo.h>
+Servo Govde;
+Servo Orta;
+Servo Kuyruk;
+
+int govdePin=9;
+int ortaPin=10;
+int kuyrukPin=11;
+int joystickY;
+void setup() {
+  Govde.attach(govdePin);
+  Orta.attach(ortaPin);
+  Kuyruk.attach(kuyrukPin);
+  Govde.write(90);
+  Orta.write(90);
+  Kuyruk.write(90);
+  delay(3000);
+}
+void loop() {
+  for (int i = 90; i < 180; i++) {
+    JoystickKontrol();
+    Orta.write(i);
+    Kuyruk.write(i);
+    delay(10);
+  }
+  for (int i = 180; i > 0; i--) {
+    JoystickKontrol();
+    Orta.write(i);
+    Kuyruk.write(i);
+    delay(10);
+  }
+  for (int i = 0; i < 90; i++) {
+    JoystickKontrol();
+    Orta.write(i);
+    Kuyruk.write(i);
+    delay(10);
+  }
+
+
+
+
+
+
+
+}
+void JoystickKontrol() {
+  joystickY = analogRead(A0);
+  if (joystickY < 10) {
+    Govde.write(0);
+  }
+  else if (joystickY > 1000) {
+    Govde.write(180);
+  }
+  else {
+    Govde.write(90);
+  }
+}
